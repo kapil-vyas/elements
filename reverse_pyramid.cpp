@@ -1,25 +1,30 @@
 #include <iostream>
+#include "stdlib.h"
 using std::cout;
 
 // Program generates reverse-pyramid pattern
-// Key: 
-// h = hash count
-// s = total space count
-// e = edge space count
-// Width 8    h s e e i.2 4-i
-// 1 ######## 8 0 0 0 4.2 4-4 0
-// 2  ######  6 2 1 1 3.2 4-3 1
-// 3   ####   4 4 2 2 2.2 4-2 2
-// 4    ##    2 6 3 3 1.2 4-1 3
+// Note j is from -4 to +4         
+// Algorithm:
+//  if j=0 ignore, 
+//  if i+1-|j|>0 print #, 
+//  if i+1-|j|<=0 print space
+// Analysis:
+//            i  i+1-|j|  j=[432101234]
+// 1 ######## 4    5-|j|  :  123454321
+// 2  ######  3    4-|j|  :  012343210 
+// 3   ####   2    3-|j|  :  -0123210-
+// 4    ##    1    2-|j|  :  --01210--
 
 int main() {
-  cout << "h" << " " << "e\n";
   for( int i = 4; i >= 1; i-- ) {
-    for( int j = 1; j <= i*2; j++ ) {
-      for( int k = 4-i; k < 4; k++ ) {
+    for( int j = -4; j <= 4; j++ ) {
+      if( j == 0 )
+        continue;
+      int result = i+1-abs(j);
+      if( result > 0 ) 
+        cout << "#";
+      else 
         cout << " ";
-      }
-      cout << "#";
     }
     cout << "\n";
   }
