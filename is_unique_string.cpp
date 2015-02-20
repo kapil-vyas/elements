@@ -1,7 +1,10 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 using std::cout;
+using std::cin;
 using std::string;
+using std::strcpy;
 
 bool is_unique(char * input, int length) {
   int ascii_array[128];
@@ -29,9 +32,7 @@ void print(bool value) {
     cout << "Not Unique\n";
 }
 
-int main() {
-  char input1[5] = {'H', 'e', 'l', 'l', 'o'};
-  print(is_unique(input1 , 5));
+void test() {
   char input2[5] = {'H', 'e', 'l', 'i', 'o'};
   print(is_unique(input2 , 5));
   char input3[1] = {'H'};
@@ -40,6 +41,16 @@ int main() {
   print(is_unique(input4 , 0));
   char input5[4] = {'L', 'a', 'l', 'l'};
   print(is_unique(input5 , 4));
+}
+int main() {
+  test();
+  string input;
+  cin >> input;
 
+  char * cstr = new char[input.length()+1];
+  std::strcpy(cstr, input.c_str());
+  print(is_unique(cstr, input.length()));
+
+  delete[] cstr;
   return 0;
 }
