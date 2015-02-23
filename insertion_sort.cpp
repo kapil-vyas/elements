@@ -11,20 +11,39 @@ void print_array(string text, int * array, int length) {
 }
 
 void insertion_sort(int * array, int length) {
+  // Basic idea: move [j] to temp and keep sliding elements to the right
+  // creates empty slot in left, move temp to empty slot      
+  // Demo:
+  // [2][4][1] 
+  //        ^
+  // [ ][2][4]
+  // [1][2][4]
   // With for and while
+
   for( int i = 1; i < length; i++ ) {
     int j = i;
-    int curr = array[j];
-    while( curr < array[j-1] && j > 0 ) {
+    int temp = array[j];
+    while( temp < array[j-1] && j > 0 ) {
       array[j] = array[j-1];
       j--;
     }
-    array[j] = curr;
+    array[j] = temp;
   }
 }
 
 void insertion_sort_for(int * array, int length) {
+  // Basic idea: move [j-1] to temp and float temp to left on each loop iteration
+  // creates empty slot in right, move temp to empty slot at end of each inner loop
+  // Demo:
+  // [2][4][5][1] 
+  //           ^
+  // [2][4][1][ ]
+  // [2][4][1][5] ...1st loop
+  // [2][1][4][5] ...2nd loop
+  // [1][2][4][5] ...3rd loop
+  // With for and while
   // With two for
+
   for( int i = 1; i < length; i++ ) {
     for( int j = i; array[j-1] > array[j] && j >= 1; j-- ) {
       int temp = array[j-1];
