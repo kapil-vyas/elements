@@ -17,6 +17,18 @@ void print_state(int state) {
   if( state == 3 ) cout << "U";
 }
 
+void print_index_chain(int state, int i, int j, Array matrix, int& prev_value) {
+  if( i != -1 && j != -1 && i != LEN && j != LEN ) {
+    cout << "State: ";
+    print_state(state);
+    cout << " Before: [" << i << "," << j << "]=" << matrix[i][j];
+    int temp = prev_value;
+    prev_value = matrix[i][j];
+    matrix[i][j] = temp;
+    cout << " Now: [" << i << "," << j << "]=" << matrix[i][j] << "\n";
+  }
+}
+
 //    -10
 //     00 01 02 03
 //     10 11 12
@@ -27,14 +39,9 @@ void rotate_matrix(Array matrix) {
     int i = 0;
     int j = 0;
     int state = R;
+    int prev_chain_value = matrix[i][j];
 
     do {
-      if( i != -1 && j != -1 && i != LEN && j != LEN ) {
-        cout << "State: ";
-        print_state(state);
-        cout << " " << i << " " << j << "\n";
-      }
-
       // switch state
       if( j == LEN ) {
         state = D;
@@ -57,6 +64,8 @@ void rotate_matrix(Array matrix) {
       if( state == D ) i++;
       if( state == L ) j--;
       if( state == U ) i--;
+
+      print_index_chain(state, i, j, matrix, prev_chain_value);  
     } while( i != 0 || j != 0 );
 }
 
