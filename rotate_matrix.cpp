@@ -1,6 +1,6 @@
 #include <iostream>
 using std::cout;
-const int LEN=2;
+const int LEN=3;
 const int ROWS=LEN;
 const int COLS=LEN;
 typedef int Array[ROWS][COLS];
@@ -80,17 +80,17 @@ void print_matrix(const Array matrix) {
 
 int main() {
   // Case 1:
+  /*
   int matrix[2][2] = { {1, 2}, {3, 4} };
   print_matrix(matrix);
   rotate_matrix(matrix);
   print_matrix(matrix);
+  */
   
   // Case 2:
-  /*
-  int matrix[3][3] = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9};
+  int matrix[3][3] = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
   print_matrix(matrix);
   rotate_matrix(matrix);
   print_matrix(matrix);
-  */
   return 0;
 }
