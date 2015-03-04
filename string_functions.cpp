@@ -1,94 +1,147 @@
 #include <iostream>
-#include <string>
-#include <cstring>
 using std::cout;
-using std::string;
-using std::strcpy;
 typedef char * ArrayString;
 
-// Return new length of output string
-int append(ArrayString inputString, int length, ArrayString & outputString, char charToAppend) {
-  outputString = new char[length+1];
-  for(int i = 0; i < length; i++)
-    outputString[i] = inputString[i];
-  outputString[length] = charToAppend;
-  return length+1;
+int length(ArrayString input) {
+  int count = 0;
+  while( input[count] != 0 ) {
+    count++;
+  }
+  return count+1; // Plus 1 for null terminating char
 }
 
-// Append destination string to source string
-int concatenate(ArrayString source, int sourceLength, ArrayString dest, int destLength) {
-  int totalLength = sourceLength+destLength;
-  char * temp = new char[totalLength]; 
-  for(int i = 0; i < sourceLength; i++) {
-    temp[i] = source[i];
+bool equal(ArrayString input, ArrayString compare) {
+  int length_input = length(input);
+  int length_compare = length(compare);
+  if( length_input != length_compare ) return false;
+  for(int i = 0; i < length_input; i++ ) {
+    if( input[i] != compare[i] )
+      return false;
   }
-  for(int i = 0; i < destLength; i++) {
-    temp[sourceLength+i] = dest[i];
-  }
-  source = temp;
-  cout << temp << "\n";
-  return totalLength;
-}
-
-// Returns the char at position n
-bool characterAt(ArrayString arrayString, int length, int position, char & charAtPosition) {
-  if( position < 0 || position >= length ) {
-    return false;
-  }
-  charAtPosition = arrayString[charAtPosition];
   return true;
 }
 
-void testConcatenate() {
-  string sourceString = "Hello"; 
-  string appendString = "Pin"; 
-  char source[sourceString.length()+1];
-  strcpy(source, sourceString.c_str());
-  char append[appendString.length()+1];
-  strcpy(append, appendString.c_str());
-
-  int sourceLength = 5;
-  int appendLength = 3;
-  concatenate(source, sourceLength, append, appendLength);
-  //cout << source << "\n";
+void append(ArrayString& inputString, char charToAppend) {
+  int oldLength = length(inputString); 
+  int newLength = oldLength+1;
+  ArrayString temp = new char[newLength];
+  for(int i = 0; i < oldLength; i++)
+    temp[i] = inputString[i];
+  delete [] inputString;
+  temp[newLength-2] = charToAppend;
+  temp[newLength-1] = 0; 
+  inputString = temp;
 }
 
 void testAppend() {
-  char arrayString1[5] = {'H', 'e', 'l', 'l', 'o'}; 
-  int length = 5;
-  ArrayString outputString;
-  append(arrayString1, length, outputString, 'w');
-  cout << outputString << "\n";
+  ArrayString arrayString1 = new char[6];
+  arrayString1[0] = 'H';
+  arrayString1[1] = 'e';
+  arrayString1[2] = 'l';
+  arrayString1[3] = 'l';
+  arrayString1[4] = 'o';
+  arrayString1[5] = 0;
+  append(arrayString1, 'w');
 
-  char arrayString2[3] = {'P', 'i', 'n'}; 
-  length = 3;
-  append(arrayString2, length, outputString, 'e');
-  cout << outputString << "\n";
+  char arrayTest1[7] = {'H', 'e', 'l', 'l', 'o', 'w', 0};
+  if( equal(arrayString1, arrayTest1)) {
+    cout << "Append Test 1 passed\n";
+  }
+  else {
+    cout << "Append Test 1 failed\n";
+  }
 
-  delete [] outputString;
+  ArrayString arrayString2 = new char[4];
+  arrayString2[0] = 'P';
+  arrayString2[1] = 'i';
+  arrayString2[2] = 'n';
+  arrayString2[3] = 0;
+  append(arrayString2, 'e');
+  char arrayTest2[5] = {'P', 'i', 'n', 'e', 0};
+  if( equal(arrayString2, arrayTest2)) { 
+    cout << "Append Test 2 passed\n"; 
+  }
+  else {
+    cout << "Append Test 2 failed\n";
+  }
+
+  ArrayString emptyString = new char[1];
+  emptyString[0] = 0;
+  append(emptyString, 'z');
+  
+  char arrayTest3[2] = {'z', 0};
+  if( equal(emptyString, arrayTest3)) {
+    cout << "Append Test 3 passed\n";
+  }
+  else {
+    cout <<"Append Test 3 failed\n";
+  }
+
+  // clean up
+  delete [] arrayString1;
+  delete [] arrayString2;
+  delete [] emptyString;
+}
+
+void concatenate(ArrayString& source, ArrayString stringToAppend) {
+  int sourceLength = length(source);
+  int stringToAppendLength = length(stringToAppend);
+  int newLength = sourceLength+stringToAppendLength-1;
+  ArrayString temp = new char[newLength]; 
+  for(int i = 0; i < sourceLength-1; i++) {
+    temp[i] = source[i];
+  }
+  for(int i = 0; i < stringToAppendLength-1; i++) {
+    temp[i+sourceLength-1] = stringToAppend[i];
+  }
+  temp[newLength-1] = 0;
+  delete [] source;
+  source = temp;
+}
+
+void testConcatenate() {
+  ArrayString source = new char[6];
+  source[0] = 'H';
+  source[1] = 'e';
+  source[2] = 'l';
+  source[3] = 'l';
+  source[4] = 'o';
+  source[5] = 0;
+
+  ArrayString append = new char[5];
+  append[0] = 'w';
+  append[1] = 'e';
+  append[2] = 'e';
+  append[3] = 'n';
+  append[4] = 0;
+  concatenate(source, append);
+
+  char arrayTest1[10] = {'H','e','l','l','o','w','e','e','n',0};
+  if( equal(source, arrayTest1)) {
+    cout << "Concatenate Test 1 passed\n";
+  }
+  else {
+    cout << "Concatenate Test 1 failed\n";
+  }
+}
+
+char characterAt(ArrayString arrayString, int position) {
+  return arrayString[position];
 }
 
 void testCharacterAt() {
-  char arrayString[5] = {'H', 'e', 'l', 'l', 'o'}; 
-  int length = 5;
-  ArrayString pArrayString = arrayString;
-  char charAtPosition;
+  ArrayString arrayString1 = new char[6];
+  arrayString1[0] = 'H';
+  arrayString1[1] = 'e';
+  arrayString1[2] = 'l';
+  arrayString1[3] = 'l';
+  arrayString1[4] = 'o';
+  arrayString1[5] = 0;
 
-  if( characterAt(pArrayString, length, 0, charAtPosition) ) {
-    if( charAtPosition == 'H' ) {
-      cout << "Test1 passed\n"; 
-    }
-    else {
-      cout << "Test1 failed\n";
-    }
-  }
-
-  if( characterAt(pArrayString, length, 6, charAtPosition) ) {
-      cout << "Test1 failed\n"; 
-  }
-  else {
-      cout << "Test1 passed\n";
-  }
+  if( characterAt(arrayString1, 0) == 'H' )
+      cout << "CharacterAt Test1 passed\n"; 
+  else 
+      cout << "CharacterAt Test1 failed\n"; 
 }
 
 int main() {
