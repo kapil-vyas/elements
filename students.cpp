@@ -21,6 +21,19 @@ void add(P_NODE& collection, STUDENT student) {
   collection = new_student;
 }
 
+double average(P_NODE& collection) {
+  double sum = 0;
+  double count = 0;
+  P_NODE current = collection;
+  while(current != NULL) {
+    sum += current->student.grade;
+    count++;
+    current = current->p_next;
+  }
+  if(count == 0) return 0;
+  return sum/count;
+}
+
 void print(P_NODE& collection) {
   P_NODE current = collection;
   while(current != NULL) {
@@ -48,6 +61,9 @@ void test_add(P_NODE& collection) {
   STUDENT student4 = {4, 94};
   add(collection, student4);
   print(collection);
+
+  double avge = average(collection);
+  cout << "Average: " << avge << "\n";
 }
 
 int main(int argc, char *argv[]) {
