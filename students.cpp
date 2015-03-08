@@ -43,8 +43,14 @@ void add_sorted(P_NODE& head, STUDENT student) {
     }
     curr_node = curr_node->p_next;
   }
-  prev_node->p_next = new_node;
-  new_node->p_next = curr_node;
+  if(prev_node == NULL) {
+    head = new_node;
+    new_node->p_next = curr_node;
+  }
+  else {
+    prev_node->p_next = new_node;
+    new_node->p_next = curr_node;
+  }
 }
 
 bool delete_record(P_NODE& head, int student_id) {
@@ -145,6 +151,7 @@ void test_add_sorted(P_NODE& collection) {
 void test_delete_record(P_NODE& collection) {
   bool is_deleted = false;
   print(collection);
+  cout << "Delete 1\n";
   is_deleted = delete_record(collection, 1);
   if(is_deleted) cout << "Record was deleted\n";
   else cout << "Record was not deleted as it could not be found\n";
@@ -154,29 +161,44 @@ void test_delete_record(P_NODE& collection) {
   add_sorted(collection, student1);
   print(collection);
 
+  cout << "Delete 1\n";
   is_deleted = delete_record(collection, 1);
   if(is_deleted) cout << "Record was deleted\n";
   else cout << "Record was not deleted as it could not be found\n";
   print(collection);
 
-  STUDENT student2 = {3, 98};
-  add_sorted(collection, student2);
-  print(collection);
- 
-  STUDENT student3 = {2, 74};
+  STUDENT student3 = {3, 98};
   add_sorted(collection, student3);
   print(collection);
+ 
+  STUDENT student2 = {2, 74};
+  add_sorted(collection, student2);
+  print(collection);
 
-  /*
+  cout << "Delete 3\n";
   is_deleted = delete_record(collection, 3);
   if(is_deleted) cout << "Record was deleted\n";
   else cout << "Record was not deleted as it could not be found\n";
   print(collection);
+  
+  add_sorted(collection, student1);
+  add_sorted(collection, student3);
 
   STUDENT student4 = {4, 94};
   add_sorted(collection, student4);
   print(collection);
-  */
+  cout << "Delete 4\n";
+  is_deleted = delete_record(collection, 4);
+  if(is_deleted) cout << "Record was deleted\n";
+  else cout << "Record was not deleted as it could not be found\n";
+  print(collection);
+
+  cout << "Delete 2\n";
+  is_deleted = delete_record(collection, 2);
+  if(is_deleted) cout << "Record was deleted\n";
+  else cout << "Record was not deleted as it could not be found\n";
+  print(collection);
+
 }
 
 int main(int argc, char *argv[]) {
