@@ -1,16 +1,20 @@
 typedef char * ArrayString;
 
-int length(ArrayString input) {
+// length function returns the length of the input string and
+// not the size of the input string
+// Say, input = char[5];       --> size is 5
+// input = {'a','b','c','d',0} --> size is 5, but length is 4
+int length(const ArrayString input) {
   int count = 0;
   while( input[count] != 0 ) {
     count++;
   }
-  return count+1; // Plus 1 for null terminating char
+  return count; 
 }
 
 bool equal(ArrayString input, ArrayString compare) {
-  int length_input = length(input);
-  int length_compare = length(compare);
+  int length_input = length(input)+1; // To account for NULL char
+  int length_compare = length(compare)+1;
   if( length_input != length_compare ) return false;
   for(int i = 0; i < length_input; i++ ) {
     if( input[i] != compare[i] )
@@ -21,9 +25,8 @@ bool equal(ArrayString input, ArrayString compare) {
 
 ArrayString substring(ArrayString input, int pos, int substrlen) {
   ArrayString substr;
-  if( substrlen < 0 || 
-      substrlen > length(input)-1-(pos - 1) ||
-      pos < 0 || pos > length(input) - 1 ) {
+  if( substrlen < 0 || substrlen > length(input)-(pos - 1) ||
+      pos < 0 || pos > length(input) ) {
     substr = new char[1];
     substr[0] = 0;
     return substr;
@@ -38,7 +41,7 @@ ArrayString substring(ArrayString input, int pos, int substrlen) {
 }
 
 void append(ArrayString& inputString, char charToAppend) {
-  int oldLength = length(inputString); 
+  int oldLength = length(inputString)+1; 
   int newLength = oldLength+1;
   ArrayString temp = new char[newLength];
   for(int i = 0; i < oldLength; i++)
@@ -50,8 +53,8 @@ void append(ArrayString& inputString, char charToAppend) {
 }
 
 void concatenate(ArrayString& source, ArrayString stringToAppend) {
-  int sourceLength = length(source);
-  int stringToAppendLength = length(stringToAppend);
+  int sourceLength = length(source)+1;
+  int stringToAppendLength = length(stringToAppend)+1;
   int newLength = sourceLength+stringToAppendLength-1;
   ArrayString temp = new char[newLength]; 
   for(int i = 0; i < sourceLength-1; i++) {
