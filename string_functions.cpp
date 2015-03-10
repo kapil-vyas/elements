@@ -12,7 +12,7 @@ int length(const ArrayString input) {
   return count; 
 }
 
-bool equal(ArrayString input, ArrayString compare) {
+bool equal(const ArrayString input, const ArrayString compare) {
   int length_input = length(input)+1; // To account for NULL char
   int length_compare = length(compare)+1;
   if( length_input != length_compare ) return false;
@@ -23,7 +23,7 @@ bool equal(ArrayString input, ArrayString compare) {
   return true;
 }
 
-ArrayString substring(ArrayString input, int pos, int substrlen) {
+ArrayString substring(const ArrayString input, int pos, int substrlen) {
   ArrayString substr;
   if( substrlen < 0 || substrlen > length(input)-(pos - 1) ||
       pos < 0 || pos > length(input) ) {
@@ -52,7 +52,7 @@ void append(ArrayString& inputString, char charToAppend) {
   inputString = temp;
 }
 
-void concatenate(ArrayString& source, ArrayString stringToAppend) {
+void concatenate(ArrayString& source, const ArrayString stringToAppend) {
   int sourceLength = length(source)+1;
   int stringToAppendLength = length(stringToAppend)+1;
   int newLength = sourceLength+stringToAppendLength-1;
