@@ -23,6 +23,27 @@ bool equal(const ArrayString input, const ArrayString compare) {
   return true;
 }
 
+int find(const ArrayString input, const ArrayString token) {
+  int tokenlen = length(token);
+  int len = length(input);
+  int matches = 0;
+
+  int init_state = 0;
+  int end_state = tokenlen-1;
+  int curr_state = 0;
+
+  for( int i = 0; i < len; i++ ) {
+    if( token[curr_state] == input[i] ) {
+      if( curr_state == end_state ) {
+        matches++;
+        curr_state = 0;
+      }
+      curr_state++;
+    }
+  }
+  return matches;
+}
+    
 ArrayString substring(const ArrayString input, int pos, int substrlen) {
   ArrayString substr;
   if( substrlen < 0 || substrlen > length(input)-(pos - 1) ||
