@@ -28,17 +28,23 @@ int find(const ArrayString input, const ArrayString token) {
   int len = length(input);
   int matches = 0;
 
-  int init_state = 0;
   int end_state = tokenlen-1;
   int curr_state = 0;
+  bool prev_match = false;
 
   for( int i = 0; i < len; i++ ) {
+    if( prev_match && token[curr_state] != input[i] ) {
+      curr_state = 0;
+    }
     if( token[curr_state] == input[i] ) {
       if( curr_state == end_state ) {
         matches++;
         curr_state = 0;
       }
-      curr_state++;
+      else {
+        curr_state++;
+      }
+      prev_match = true;
     }
   }
   return matches;

@@ -1,6 +1,48 @@
 #include <iostream>
+#include <string>
+#include <cstring>
 #include "string_functions.cpp"
 using std::cout;
+using std::string;
+using std::strcpy;
+
+void testFind() {
+  ArrayString arrayString1 = new char[9];
+  string temp = "abcbabdc";
+  strcpy(arrayString1, temp.c_str());
+
+  ArrayString token = new char[4];
+  temp = "abc";
+  strcpy(token, temp.c_str());
+
+  int count1 = find(arrayString1, token);
+  if( count1 == 1 ) cout << "Find Test 1 passed\n";
+
+  ArrayString token2 = new char[3];
+  temp = "ab";
+  strcpy(token2, temp.c_str());
+
+  int count2 = find(arrayString1, token2);
+  if( count2 == 2 ) cout << "Find Test 2 passed\n";
+  
+  ArrayString arrayString2 = new char[13];
+  temp = "abcbcabcdcbc";
+  strcpy(arrayString2, temp.c_str());
+
+  ArrayString token3 = new char[3];
+  temp = "bc";
+  strcpy(token3, temp.c_str());
+
+  int count3 = find(arrayString2, token3);
+  if( count3 == 4 ) cout << "Find Test 3 passed\n";
+
+  ArrayString token4 = new char[2];
+  temp = "y";
+  strcpy(token4, temp.c_str());
+
+  int count4 = find(arrayString2, token4);
+  if( count4 == 0 ) cout << "Find Test 4 passed\n";
+}
 
 void testAppend() {
   ArrayString arrayString1 = new char[6];
@@ -139,5 +181,7 @@ int main() {
   testConcatenate();
   cout << "\n";
   testSubstring();
+  cout << "\n";
+  testFind();
   return 0;
 }
