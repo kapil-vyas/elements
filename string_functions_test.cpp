@@ -44,6 +44,52 @@ void testFind() {
   if( count4 == 0 ) cout << "Find Test 4 passed\n";
 }
 
+void testMatchIndex() {
+  ArrayString arrayString1 = new char[9];
+  string temp = "abcbabdc";
+  strcpy(arrayString1, temp.c_str());
+
+  ArrayString token = new char[4];
+  temp = "abc";
+  strcpy(token, temp.c_str());
+
+  int * match_index_list1 = match_index(arrayString1, token);
+  if( match_index_list1[0] == 0 ) cout << "Match Index Test 1 passed\n";
+  else cout << "Match Index Test 1 failed\n";
+
+  ArrayString token2 = new char[3];
+  temp = "ab";
+  strcpy(token2, temp.c_str());
+
+  int * match_index_list2 = match_index(arrayString1, token2);
+  if( match_index_list2[0] == 0 && match_index_list2[1] == 4) cout << "Match Index Test 2 passed\n";
+  else cout << "Match Index Test 2 failed\n";
+  
+  ArrayString arrayString2 = new char[13];
+  temp = "abcbcabcdcbc";
+  strcpy(arrayString2, temp.c_str());
+
+  ArrayString token3 = new char[3];
+  temp = "bc";
+  strcpy(token3, temp.c_str());
+
+  int * match_index_list3 = match_index(arrayString2, token3);
+  if( match_index_list3[0] == 1 && 
+      match_index_list3[1] == 3 && 
+      match_index_list3[2] == 6 &&
+      match_index_list3[3] == 10 ) 
+    cout << "Match Index Test 3 passed\n";
+  else cout << "Match Index Test 3 failed\n";
+
+  ArrayString token4 = new char[2];
+  temp = "y";
+  strcpy(token4, temp.c_str());
+
+  int * match_index_list4 = match_index(arrayString2, token4);
+  if( match_index_list4 == NULL ) cout << "Match Index Test 4 passed\n";
+}
+
+
 void testAppend() {
   ArrayString arrayString1 = new char[6];
   arrayString1[0] = 'H';
@@ -183,5 +229,8 @@ int main() {
   testSubstring();
   cout << "\n";
   testFind();
+  cout << "\n";
+  testMatchIndex();
+  
   return 0;
 }

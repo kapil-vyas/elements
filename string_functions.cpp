@@ -49,7 +49,40 @@ int find(const ArrayString input, const ArrayString token) {
   }
   return matches;
 }
-    
+
+int * match_index(const ArrayString input, const ArrayString token) {
+  int count = find(input, token);
+  if( count == 0 )
+    return NULL;
+  int * match_indexes = new int[count];
+
+  int tokenlen = length(token);
+  int len = length(input);
+  int index = 0;
+
+  int end_state = tokenlen-1;
+  int curr_state = 0;
+  bool prev_match = false;
+
+  for( int i = 0; i < len; i++ ) {
+    if( prev_match && token[curr_state] != input[i] ) {
+      curr_state = 0;
+    }
+    if( token[curr_state] == input[i] ) {
+      if( curr_state == end_state ) {
+        match_indexes[index] = i-tokenlen+1;
+        index++;
+        curr_state = 0;
+      }
+      else {
+        curr_state++;
+      }
+      prev_match = true;
+    }
+  }
+  return match_indexes;
+}
+
 ArrayString substring(const ArrayString input, int pos, int substrlen) {
   ArrayString substr;
   if( substrlen < 0 || substrlen > length(input)-(pos - 1) ||
