@@ -83,6 +83,33 @@ int * match_index(const ArrayString input, const ArrayString token) {
   return match_indexes;
 }
 
+int replace(ArrayString input, ArrayString token, ArrayString replace_token) {
+  int count = find(input, token);
+  int inputlen = length(input);
+  int tokenlen = length(token);
+  int replace_tokenlen = length(token);
+  int newlen = inputlen+count*(replace_tokenlen-tokenlen);
+
+  ArrayString temp = new char[newlen];
+  int k = 0;
+  int * match_index_array = match_index(input, token);
+
+  for( int i = 0; i < inputlen; i++ ) {
+    if( i == match_index_array[k] ) {
+      for( int j = 0; j < replace_tokenlen; j++ ) {
+        temp[k] = token[i];
+        k++;
+      }
+    }
+    else {
+      temp[k] = input[i];
+    }
+  }
+  delete [] input;
+  input = temp;
+  return newlen;
+}
+
 ArrayString substring(const ArrayString input, int pos, int substrlen) {
   ArrayString substr;
   if( substrlen < 0 || substrlen > length(input)-(pos - 1) ||
