@@ -1,3 +1,5 @@
+#include <iostream>
+using std::cout;
 typedef char * ArrayString;
 
 // length function returns the length of the input string and
@@ -83,29 +85,36 @@ int * match_index(const ArrayString input, const ArrayString token) {
   return match_indexes;
 }
 
-int replace(ArrayString input, ArrayString token, ArrayString replace_token) {
+int replace(ArrayString& input, ArrayString token, ArrayString replace_token) {
   int count = find(input, token);
   int inputlen = length(input);
   int tokenlen = length(token);
-  int replace_tokenlen = length(token);
+  int replace_tokenlen = length(replace_token);
   int newlen = inputlen+count*(replace_tokenlen-tokenlen);
 
-  ArrayString temp = new char[newlen];
+  ArrayString temp = new char[newlen+1];
   int k = 0;
   int * match_index_array = match_index(input, token);
 
-  for( int i = 0; i < inputlen; i++ ) {
+  int i = 0;
+  while( i < inputlen ) {
     if( i == match_index_array[k] ) {
-      for( int j = 0; j < replace_tokenlen; j++ ) {
-        temp[k] = token[i];
+      i += tokenlen;
+      for( int j = 0; j < replace_tokenlen-1; j++ ) {
+        temp[k] = replace_token[j];
+        cout << " " << temp[k] << "\n";
         k++;
       }
     }
     else {
       temp[k] = input[i];
+      cout << " " << temp[k] << "\n";
+      k++;
+      i++;
     }
   }
-  delete [] input;
+  temp[newlen] = 0;
+  //delete [] input;
   input = temp;
   return newlen;
 }
