@@ -149,10 +149,10 @@ void append(ArrayString& inputString, char charToAppend) {
 }
 
 void concatenate(ArrayString& source, const ArrayString stringToAppend) {
-  int sourceLength = length(source)+1;
-  int stringToAppendLength = length(stringToAppend)+1;
-  int newLength = sourceLength+stringToAppendLength-1;
-  ArrayString temp = new char[newLength]; 
+  int sourceLength = length(source);
+  int stringToAppendLength = length(stringToAppend);
+  int newLength = sourceLength+stringToAppendLength;
+  ArrayString temp = new char[newLength+1]; // To account for Null char
   for(int i = 0; i < sourceLength-1; i++) {
     temp[i] = source[i];
   }
