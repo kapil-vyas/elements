@@ -1,24 +1,24 @@
 #include <iostream>
 
 bool assertEqual(int result, int expected) {
-    return result == expected;
+  return result == expected;
 }
 
 int binarySearch(int * array, int start, int end, int needle) {
-	if(start > end) {
-		return -1;
+  if(start > end) {
+    return -1;
   }
-	int mid = (start + end)/2;
-	if(array[mid] == needle) {
-		return mid;
+  int mid = (start + end)/2;
+  if(array[mid] == needle) {
+    return mid;
   }
-	if(needle < array[mid]) {
-		end = mid-1;
+  if(needle < array[mid]) {
+    end = mid-1;
   }
-	else {
-		start = mid+1;
+  else {
+    start = mid+1;
   }
-	return binarySearch(array, start, end, needle);
+  return binarySearch(array, start, end, needle);
 }
 
 int main() {
@@ -34,13 +34,13 @@ int main() {
     printf("Test 1 failed\n");
   }
   if (assertEqual(binarySearch(primes, start, end, 41), 12)) {
-      printf("Test 2 passed\n");
+    printf("Test 2 passed\n");
   }
   else {
     printf("Test 2 failed\n");
   }
   if (assertEqual(binarySearch(primes, start, end, 97), 24)) {
-      printf("Test 3 passed\n");
+    printf("Test 3 passed\n");
   }
   else {
     printf("Test 3 failed\n");
