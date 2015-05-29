@@ -5,10 +5,13 @@ def reverse_string(input):
 
   for i in range(0, length):
     output[length-1-i] = input[i]
+  output = ''.join(str(i) for i in output)
   return output
 
 input = "abcdef"
 output = reverse_string(input)
-output = ''.join(output)
+print output
 
+input = "123456"
+output = reverse_string(input)
 print output
