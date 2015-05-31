@@ -1,10 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-using std::cout;
-using std::cin;
-using std::string;
-using std::strcpy;
+using namespace::std;
 
 void print(bool value) {
   if( value )
@@ -13,10 +10,8 @@ void print(bool value) {
     cout << "Not Unique\n";
 }
 
-void print_array(char * array, int length) {
-  for(int i = 0; i < length; i++ )
-    cout << array[i] << " ";
-  cout << "\n";
+void print_array(char * array) {
+  cout << array << "\n";
 }
 
 bool is_unique_without_datastr(char * input, int length) {
@@ -31,7 +26,7 @@ bool is_unique_without_datastr(char * input, int length) {
       input[j] = temp;
     }
   }
-  print_array(input, length);
+  print_array(input);
   
   // check for consecutive occurences of a character
   int curr_char = input[0];
@@ -45,45 +40,29 @@ bool is_unique_without_datastr(char * input, int length) {
   return true;
 }
 
-bool is_unique(char * input, int length) {
-  int ascii_array[128];
-  // Initialize to zero count:
-  for( int i = 0; i < 128; i++ ) {
-    ascii_array[i] = 0;
-  }
+bool is_unique(char * input) {
+  int length = strlen(input);
+  int ascii_array[128] = {0};
 
   for( int i = 0; i < length; i++ ) {
     ascii_array[int(input[i])]++;
     cout << input[i] << ":" << ascii_array[int(input[i])] << "\n";
-  }
-
-  for( int i = 0; i < 128; i++ ) {
-    if( ascii_array[i] > 1 ) 
+    if( ascii_array[input[i]] > 1 ) 
       return false;
   }
   return true;
 }
 
-void test() {
-  char input2[5] = {'H', 'e', 'l', 'i', 'o'};
-  print(is_unique(input2 , 5));
-  char input3[1] = {'H'};
-  print(is_unique(input3 , 1));
-  char input4[0] = {};
-  print(is_unique(input4 , 0));
-  char input5[4] = {'L', 'a', 'l', 'l'};
-  print(is_unique(input5 , 4));
-}
 int main() {
-  test();
-  string input;
-  cin >> input;
-
-  char * cstr = new char[input.length()+1];
-  std::strcpy(cstr, input.c_str());
-  //print(is_unique(cstr, input.length()));
-  print(is_unique_without_datastr(cstr, input.length()));
-
-  delete[] cstr;
+  char input1[6] = {'H', 'e', 'l', 'l', 'o', '\0'};
+  print(is_unique(input1));
+  char input2[6] = {'H', 'e', 'l', 'i', 'o', '\0'};
+  print(is_unique(input2));
+  char input3[2] = {'H', '\0'};
+  print(is_unique(input3));
+  char input4[1] = {'\0'};
+  print(is_unique(input4));
+  char input5[5] = {'L', 'a', 'l', 'l', '\0'};
+  print(is_unique(input5));
   return 0;
 }
