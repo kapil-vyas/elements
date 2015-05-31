@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 using std::cout;
 using std::string;
 typedef char * ArrayString;
@@ -22,7 +23,8 @@ int length(const ArrayString input) {
   return count; 
 }
 
-void printString(const ArrayString input, int length) {
+void printString(string text, const ArrayString input, int length) {
+  cout << text;
   for(int i = 0; i < length; i++) {
     cout << input[i];
   }
@@ -40,33 +42,37 @@ bool equal(const ArrayString input, const ArrayString compare) {
   return true;
 }
 
-ArrayString reverseString(ArrayString input, int size) {
-  int length = size-1;
-  ArrayString array = new char[size];
-  for(int i = 0; i < length; i++) {
-    array[length-i] = input[i];
+void reverseString(ArrayString& array, int size) {
+  for(int i = 0; i < (size-1)/2; i++) {
+    cout << "> " << array[i] << " < " << array[size-1-i] << "\n";
+    int temp = array[i];
+    array[i] = array[size-1-i];
+    array[size-1-i] = temp;
   }
-  array[size] = '\0';
-  return array;
 }
 
 int main() {
-  ArrayString array = createString("abcd", 4);
-  cout << "New string: ";
-  printString(array, 5);
-  ArrayString actualString = reverseString(array, 5);
-  cout << "Actual string: ";
-  printString(actualString, 5);
-  cout << "Lenght 1: " << length(actualString);
-  ArrayString expectedString = createString("dcba", 4);
-  cout << "Expected string: ";
-  printString(expectedString, 5);
-  cout << "Lenght 2: " << length(expectedString);
-  if(equal(actualString, expectedString)) {
+  ArrayString array1 = createString("abcd", 4);
+  printString("Array 1 Before: ", array1, 4);
+  reverseString(array1, 4);
+  printString("Array 1 After: ", array1, 4);
+  ArrayString array1_expected = createString("dcba", 4);
+  if(equal(array1, array1_expected)) {
     cout << "Test 1 Passed\n";
   }
   else {
     cout << "Test 1 Failed\n";
+  }
+  ArrayString array2 = createString("abcde", 5);
+  printString("Array 2 Before: ", array2, 5);
+  reverseString(array2, 5);
+  printString("Array 2 After: ", array2, 5);
+  ArrayString array2_expected = createString("edcba", 5);
+  if(equal(array2, array2_expected)) {
+    cout << "Test 2 Passed\n";
+  }
+  else {
+    cout << "Test 2 Failed\n";
   }
   return 0;
 }
