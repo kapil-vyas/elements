@@ -1,72 +1,37 @@
 #include <iostream>
-using std::cout;
-using std::string;
-typedef char * ArrayString;
-using std::strcpy;
+#include <cstring>
+using namespace::std;
 
-ArrayString createString(string value, int length) {
-  ArrayString array = new char[length];
-  strcpy(array, value.c_str());
-  return array;
-}
-
-// length function returns the length of the input string and
-// not the size of the input string
-// Say, input = char[5];       --> size is 5
-// input = {'a','b','c','d',0} --> size is 5, but length is 4
-int length(const ArrayString input) {
-  int count = 0;
-  while( input[count] != 0 ) {
-    count++;
+void reverseString(char * array) {
+  int size = strlen(array)+1;
+  for(int i = 0; i < (size-1)/2; i++) {
+    int temp = array[i];
+    array[i] = array[size-2-i];
+    array[size-2-i] = temp;
   }
-  return count; 
-}
-
-void printString(const ArrayString input, int length) {
-  for(int i = 0; i < length; i++) {
-    cout << input[i];
-  }
-  cout << "\n";
-}
-
-bool equal(const ArrayString input, const ArrayString compare) {
-  int length_input = length(input)+1; // To account for NULL char
-  int length_compare = length(compare)+1;
-  if( length_input != length_compare ) return false;
-  for(int i = 0; i < length_input; i++ ) {
-    if( input[i] != compare[i] )
-      return false;
-  }
-  return true;
-}
-
-ArrayString reverseString(ArrayString input, int size) {
-  int length = size-1;
-  ArrayString array = new char[size];
-  for(int i = 0; i < length; i++) {
-    array[length-i] = input[i];
-  }
-  array[size] = '\0';
-  return array;
 }
 
 int main() {
-  ArrayString array = createString("abcd", 4);
-  cout << "New string: ";
-  printString(array, 5);
-  ArrayString actualString = reverseString(array, 5);
-  cout << "Actual string: ";
-  printString(actualString, 5);
-  cout << "Lenght 1: " << length(actualString);
-  ArrayString expectedString = createString("dcba", 4);
-  cout << "Expected string: ";
-  printString(expectedString, 5);
-  cout << "Lenght 2: " << length(expectedString);
-  if(equal(actualString, expectedString)) {
+  // Test 1 
+  char array1[5] = {'a', 'b', 'c', 'd', '\0'};
+  reverseString(array1);
+  char array1_expected[5] = {'d', 'c', 'b', 'a', '\0'};
+  if(strcmp(array1, array1_expected) == 0) {
     cout << "Test 1 Passed\n";
   }
   else {
     cout << "Test 1 Failed\n";
+  }
+
+  // Test 2
+  char array2[6] = {'a', 'b', 'c', 'd', 'e', '\0'};
+  reverseString(array2);
+  char array2_expected[6] = {'e', 'd', 'c', 'b', 'a', '\0'};
+  if(strcmp(array2, array2_expected) == 0) {
+    cout << "Test 2 Passed\n";
+  }
+  else {
+    cout << "Test 2 Failed\n";
   }
   return 0;
 }
