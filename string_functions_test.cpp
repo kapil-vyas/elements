@@ -107,8 +107,10 @@ void testReplace() {
   cout << "Output: " << arrayString1 << "\n";
 
   char result[7] = {'x','y','b','x','y','c',0};
-  if( equal(arrayString1, result ) ) cout << "Replace Test 1 passed\n";
-  else cout << "Match Index Test 1 failed\n";
+  if( equal(arrayString1, result ) ) 
+    cout << "Replace Test 1 passed\n";
+  else 
+    cout << "Replace Test 1 failed\n";
 
   ArrayString arrayString2 = new char[9];
   temp = "abcbabcc";
@@ -127,8 +129,10 @@ void testReplace() {
   cout << "Output: " << arrayString2 << "\n";
 
   char result2[11] = {'a','x','y','z','b','a','x','y','z','c',0};
-  if( equal(arrayString2, result ) ) cout << "Replace Test 1 passed\n";
-  else cout << "Match Index Test 1 failed\n";
+  if( equal(arrayString2, result ) ) 
+    cout << "Replace Test 2 passed\n";
+  else 
+    cout << "Replace Test 2 failed\n";
 
   /*
   ArrayString arrayString2 = new char[13];
@@ -155,6 +159,7 @@ void testReplace() {
   if( match_index_list4 == NULL ) cout << "Match Index Test 4 passed\n";
   */
 }
+
 void testAppend() {
   ArrayString arrayString1 = new char[6];
   arrayString1[0] = 'H';
