@@ -17,58 +17,76 @@ using std::string;
 
 class Stack {
 public:
-    Stack(int size) {
-      // Allocate array
-      int * array = new int[size];
+  Stack(int value) {
+    // Allocate array
+    array = new int[value];
+    size = 0; 
+    length = value;
+  }
+  
+  ~Stack() {
+    // Deallocate:
+    delete [] array;
+  }
+  
+  void print() {
+    // Print array:
+    cout << "Stack: \n";
+    cout << " Size: " << size << " ";
+    cout << "[ ";
+    for( int i = 0; i < size; i++ ) {
+      cout << array[i] << " ";
     }
+    cout << "]";
+    cout << "\n";
+  }
+ 
+  int peek() {
+    return array[size]; 
+  }
 
-    ~Stack() {
-      // Deallocate:
-      delete [] array;
-    }
-    
-    void print() {
-      // Print array:
-      cout << "Stack: \n";
-      for( int i = 0; i < getSize(); i++ ) {
-        cout << " [" << i << "]=" << array[i];
-      }
-      cout << "\n";
-    }
-   
-    int peek() {
-      return array[size-1]; 
-    }
+  bool isEmpty() {
+    if(size) return false;
+    return true;
+  }
 
-    bool isEmpty() {
-      if(size) return false;
-      return true;
-    }
-
-    int pop() {
-      //TODO
-      return 0;
-    }
-    
-    void push(int value) {
-        //TODO
-    }
-
-    int getSize() {
-      return size;
-    }
-
-    void setSize(int value) {
-      size = value;
-    }
-
+  int pop() {
+    if(size > 0)
+      return array[size--];
+    return -1;
+  }
+  
+  int push(int value) {
+    if(size < length)
+      array[size++] = value;
+    return size;
+  }
+  
 private:
     int * array;
     int size;
+    int length;
 };
 
 int main(int argc, const char * argv[]) {
-  int size = 5;
-  Stack stack(size);
+  Stack stack(5);
+  stack.print();
+  stack.push(1);
+  stack.print();
+  stack.push(2);
+  stack.push(3);
+  stack.push(4);
+  stack.push(5);
+  stack.push(6);
+  stack.print();
+  stack.pop();
+  stack.pop();
+  stack.print();
+  stack.pop();
+  stack.pop();
+  stack.pop();
+  stack.pop();
+  stack.print();
   return 0;
 }
+
