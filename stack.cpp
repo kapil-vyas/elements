@@ -70,6 +70,8 @@ private:
 
 int main(int argc, const char * argv[]) {
   Stack stack(5);
+  if( stack.isEmpty() ) cout << "Empty stack\n";
+  else cout << "Non-empty stack\n";
   stack.print();
   stack.push(1);
   stack.print();
@@ -79,6 +81,8 @@ int main(int argc, const char * argv[]) {
   stack.push(5);
   stack.push(6);
   stack.print();
+  if( stack.isEmpty() ) cout << "Empty stack\n";
+  else cout << "Non-empty stack\n";
   stack.pop();
   stack.pop();
   stack.print();
@@ -87,6 +91,8 @@ int main(int argc, const char * argv[]) {
   stack.pop();
   stack.pop();
   stack.print();
+  if( stack.isEmpty() ) cout << "Empty stack\n";
+  else cout << "Non-empty stack\n";
   return 0;
 }
 
