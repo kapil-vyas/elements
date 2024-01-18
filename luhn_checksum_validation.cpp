@@ -1,17 +1,18 @@
 #include <iostream>
+
 using std::cin;
 using std::cout;
 
 bool isdigit(char c) {
   //cout << in << " Is digit\n";
-  if(c>=48 && c<=57) 
+  if (c >= 48 && c <= 57) 
     return true;
   else
     return false;
 }
 
 int atoi(char c) {
-  return int(c)-48;
+  return int(c) - 48;
 }
 
 int doubledigit(int in) {
@@ -19,16 +20,16 @@ int doubledigit(int in) {
   if( in > 9 ) {
     int ones = in % 10;
     int tens = in / 10;
-    return ones+tens;
+    return ones + tens;
   }
   return in;
 }
 
 int main() {
   char in;
-  int sum_odd = 0;
+  int sum_odd  = 0;
   int sum_even = 0;
-  int counter = 0;
+  int counter  = 0;
 
   do {
     cin.get(in);
@@ -38,18 +39,16 @@ int main() {
       int digit = atoi(in);
 
       // Odd case:
-      if( counter%2 == 0) {
-        int twice = doubledigit(digit);
-        sum_odd += twice;
+      if( counter % 2 == 0) {
+        sum_odd += doubledigit(digit);
       }
       else {
         sum_odd += digit;
       }
       
       // Even case:
-      if( counter%2 != 0) {
-        int twice = doubledigit(digit);
-        sum_even += twice;
+      if( counter % 2 != 0) {
+        sum_even += doubledigit(digit);
       }
       else {
         sum_even += digit;
@@ -57,15 +56,15 @@ int main() {
     }
   } while(in != '\n');
 
-  if(counter%2 == 0) {
-    if(sum_even%10 == 0)
+  if (counter % 2 == 0) {
+    if (sum_even % 10 == 0)
       cout << "Valid\n";
     else
       cout << "Invalid\n";
   }
 
-  if(counter%2 != 0) {
-    if(sum_odd%10 == 0)
+  if (counter % 2 != 0) {
+    if(sum_odd % 10 == 0)
       cout << "Valid\n";
     else
       cout << "Invalid\n";
